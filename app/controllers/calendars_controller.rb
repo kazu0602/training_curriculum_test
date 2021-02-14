@@ -2,7 +2,8 @@ class CalendarsController < ApplicationController
 
   # １週間のカレンダーと予定が表示されるページ
   def index
-    getWeek
+    #1ここもメソッド名なので変更
+    get_week
     @plan = Plan.new
   end
 
@@ -18,6 +19,7 @@ class CalendarsController < ApplicationController
     params.require(:plan).permit(:date, :plan)
     #calendersをplanに修正(モデル名はplan)
   end
+
 
   def getWeek
     wdays = ['(日)','(月)','(火)','(水)','(木)','(金)','(土)'] 
@@ -36,6 +38,7 @@ class CalendarsController < ApplicationController
       plans.each do |plan|
         today_plans.push(plan.plan) if plan.date == @todays_date + x
       end
+      
       #下文は曜日取得のために追加したもの
       wday_num = @todays_date.wday + x
       if wday_num >= 7
